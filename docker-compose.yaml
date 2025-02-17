@@ -1,0 +1,14 @@
+services:
+  postgres:
+    container_name: datario
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: datario2025
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/var/lib/postgresql/data
+      - ./init-sql:/docker-entrypoint-initdb.d
+
+
