@@ -34,7 +34,7 @@ pip install -r requirements.txt
 docker compose up -d
 ```
 
-O diretório `init-sql` contém um script para criação da tabela onde será armazenado os dados extraídos pelo pipeline.
+O diretório `init-sql` contém um script para criação da tabela onde será armazenado os dados extraídos durante pipeline.
 
 Definindo as variáveis de ambiente utilizadas neste projeto. 
 
@@ -50,24 +50,21 @@ Para iniciar o fluxo, basta entrar no diretório `pipelines` e executar :
 prefect -p run.py -n 'DIT: BRT GPS - Captura' -s
 ```
 
-
 ## Materialização
 
 ```bash
 prefect -p run.py -n 'DIT: BRT GPS - Materialização' -s
 ```
 
-
 ### Exemplo de execução
 
 <img src="https://github.com/herianc/datario/blob/main/images/image1.png?raw=true" width="800" height="480">
-
 
 # Entendendo os fluxos
 
 ## Captura
 
-O fluxo de captura é simples e ocorre de maneira sequencial. Começa capturando os dados brutos na API, em seguida é feita a estruturação do JSON recebido para o formato DataFrame do pandas. Logo após, é feito o salvamento dos dados no formato CSV. Adiante é feita um simples tratamento (transformação do atributo datahora e também adição da data e horário de captura) antes de serem carregados no banco de dados, é feita uma validação utilizando a biblioteca Pandera (validação de tipos). Por fim, é feito o carregamento dos dados na base de dados. Este fluxo é executado a cada 1 minuto.
+O fluxo de captura ocorre de maneira sequencial e é executado a cada minuto. Primeiramente, os dados brutos são capturados pela API e convertidos para um DataFrame do pandas. Em seguida, são salvos em formato CSV. Após essa etapa, realiza-se um tratamento simples, que inclui a conversão do atributo datahora e a adição da data e horário de captura. Antes do carregamento no banco de dados, os dados passam por uma validação de tipos utilizando a biblioteca Pandera. Por fim, os dados são inseridos na base de dados.
 
 
 <div align=center>
@@ -77,6 +74,8 @@ O fluxo de captura é simples e ocorre de maneira sequencial. Começa capturando
 
 ## Materialização
 
-Este fluxo contém apenas uma tarefa: Materializar a tabela com os registros mais recentes e filtrar os registros que estão com ignição ativa e pertencem a uma linha, ou seja, ônibus que integram o BRT. 
+Este fluxo contém apenas uma tarefa: Materializar a tabela com um filtro dos registros que estão com ignição ativa e pertencem a uma linha, ou seja, ônibus que integram o BRT, além de pegar os resultados mais recentes (. 
 
+## Liberação de espaço de armazenamento
 
+Este fluxo também contém apenas uma tarefa, que é liberar espaço de armazenamento mensalmente. Sua execução é ocorre de forma mensal tendo em vista possíveis auditorias nos dados e também para backup da tabela dos dados extraídos.
