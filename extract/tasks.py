@@ -25,7 +25,7 @@ DB_CONN_STR = f"postgresql://{DB_USER}:{DB_PASSWORD}@localhost:5432/postgres"
 TABLE_NAME = "brt_report"
 
 
-@task
+@task()
 def get_data() -> dict:
     """
     Função para realizar a captura de dados. Retorna a resposta em caso de sucesso na requisição, se não retorna um dicionário vazio.
@@ -37,10 +37,10 @@ def get_data() -> dict:
         response = requests.get(URL)
         response.raise_for_status()
 
-        log("✅ Dados capturados com sucesso.")
+        log("\t✅ Dados capturados com sucesso.")
         return response.json()
     except requests.exceptions.RequestException as e:
-        log(f"❌ Falha na requisição: {str(e)}")
+        log(f"\t❌ Falha na requisição: {str(e)}")
         raise
 
 
@@ -57,10 +57,10 @@ def parse_data(data: dict) -> pd.DataFrame:
     """
     try:
         df = pd.DataFrame(data["veiculos"])
-        log("✅ Dados estruturados com sucesso.")
+        log("\t✅ Dados estruturados com sucesso.")
         return df
     except Exception as e:
-        log(f"❌ Falha na estruturação dos dados: {e}")
+        log(f"\t❌ Falha na estruturação dos dados: {e}")
 
 
 @task
@@ -78,7 +78,7 @@ def save_report(data: pd.DataFrame) -> str:
     filepath = os.path.join(DATA_FOLDER, filename)
     print(filepath)
     data.to_csv(filepath, index=False)
-    log("✅ Dados salvos com sucesso.")
+    log("\t✅ Dados salvos com sucesso.")
 
     return filepath
 
@@ -98,22 +98,21 @@ def process_data(filepath) -> pd.DataFrame:
     df = pd.read_csv(filepath)
     df.rename(columns={"dataHora": "datahora"}, inplace=True)
     df["datahora"] = pd.to_datetime(df["datahora"], unit="ms")
+    df['extraido_em'] = datetime.now()
     df.drop(columns="id_migracao_trajeto", inplace=True)  # Atributo sempre vazio
 
-    log("✅ Dados processados com sucesso.")
+    log("\t✅ Dados processados com sucesso.")
     return df
 
 
 @task
-def load_to_database(dataframe: pd.DataFrame) -> bool:
+def load_to_database(dataframe: pd.DataFrame) -> None:
     """
     Carrega o conjunto de dados estruturado no banco de dados.
 
     Args:
         dataframe (pd.DataFrame): DataFrame processado.
-    
-    Returns 
-        bool: Flag para sinalizar que o salvamento já ocorreu    
+       
     """
     engine = create_engine(DB_CONN_STR)
 
@@ -122,29 +121,28 @@ def load_to_database(dataframe: pd.DataFrame) -> bool:
         df_validated.to_sql(
             TABLE_NAME, engine, if_exists="append", index=False, method="multi"
         )
-        log("✅ Dados carregados na base de dados.")
+        log("\t✅🗃️ Dados carregados na base de dados.")
         
         return True
     except Exception as e:
-        log(f"❌ Erro durante o carregamento na base de dados: {str(e)}")
+        log(f"\t❌🗃️ Erro durante o carregamento na base de dados: {str(e)}")
 
 
 @task
-def run_dbt(condition: bool) -> None:
+def run_dbt(flag:bool) -> None:
     """
-    Função que executa o modelo dbt que atualiza a tabela brt_table com os últimos regitros extraídos.
+    Função que executa o modelo dbt que atualiza a tabela brt_table com os últimos regitros extraídos
 
+    Args:
+        flag (bool): Flag recebida após o salvamento dos dados mais recentes na base de dados.
     """
-    if condition:
+    if flag:
         try:
-            result = subprocess.run(
-                ["dbt", "run", "--project-dir", "../datario"],
-                text=False,
-                check=False,
-                stdout=False
-            )
-            log("✅ Tabela com os últimos registros atualizada.")
+            subprocess.run(
+                    ["dbt", "run", "--project-dir", "../datario"]
+                )
+            log("\t✅ Tabela com os últimos registros atualizada.")
 
         except subprocess.CalledProcessError as e:
-            log(f"❌ Erro ao executar dbt run: {e.stderr}")
-            raise
+                log(f"\t❌ Erro ao executar dbt run: {e.stderr}")
+                raise

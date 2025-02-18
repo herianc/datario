@@ -14,6 +14,7 @@ class BrtReport(pa.DataFrameModel):
     longitude: Series[float] = pa.Field(nullable=False)
     direcao: Series[str] = pa.Field(nullable=True)
     datahora: Series[pa.DateTime] = pa.Field(nullable=False)
+    extraido_em: Series[pa.DateTime] = pa.Field(nullable=False)
     velocidade: Series[float] = pa.Field(nullable=True)
     sentido: Series[str] = pa.Field(nullable=True)
     trajeto: Series[str] = pa.Field(nullable=True)
