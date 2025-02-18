@@ -3,20 +3,16 @@ name = "datario"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 dependencies = [
+    "dask>=2024.8.0",
+    "dask-expr>=1.1.10",
     "dbt-postgres>=1.9.0",
+    "pandas>=2.2.3",
     "pandera>=0.22.1",
     "pendulum==2.0.5",
     "prefect==0.15.9",
     "psycopg2>=2.9.10",
     "python-dotenv>=1.0.1",
-    "requests>=2.26.0",
     "sqlalchemy>=2.0.38",
-]
-
-[dependency-groups]
-dev = [
-    "black>=25.1.0",
-    "isort>=6.0.0",
 ]
