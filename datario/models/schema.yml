@@ -1,0 +1,30 @@
+version: 2
+
+sources:
+  - name: postgres
+    schema: public
+    tables:
+      - name: brt_report
+        description: Tabela que contém dados históricos do BRT
+        columns:
+          - name: id
+            description: Identificador da extração
+          - name: codigo
+            description: Código identificador do veículo
+          - name: placa
+            description: Placa do veículo
+          - name: linha
+            descripton: Linha que o veículo integra
+          - name: latitude
+          - name: longitude
+          - name: datahora 
+            description: Data e horário do último sinal enviado pelo veículo
+          - name: sentido
+            description: Sentido em que o veículo está em sua linha (Ida ou Volta)
+          - name: direcao
+          - name: trajeto
+            description: Trajeto que o veículo faz
+          - name: hodometro
+            description: Dados registrados no hodometro do veículo
+          - name: ignicao
+            description: Se o veículo está ativo
