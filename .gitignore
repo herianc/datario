@@ -174,3 +174,4 @@ BRT_GPS*
 datario.ipynb
 db/
 __pycache__/
+*log/
