@@ -73,7 +73,7 @@ prefect run -p run.py -n 'DIT: BRT GPS - Liberação de espaço de armazenamento
 
 ### Exemplo de execução
 
-<img src="https://github.com/herianc/datario/blob/main/images/image1.png?raw=true" width="800" height="480">
+<img src="https://github.com/herianc/datario/blob/main/images/image.png?raw=true" width="800" height="480">
 
 # Entendendo os fluxos
 
