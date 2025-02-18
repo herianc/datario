@@ -60,8 +60,7 @@ prefect -p run.py -n 'DIT: BRT GPS - Materialização' -s
 
 ### Exemplo de execução
 
-<img src="vasco.png" width="200" height="100">
-![/home/herian/Code/datario/image.png](file:///home/herian/Code/datario/image.png)
+<img src="https://github.com/herianc/datario/blob/main/images/image1.png?raw=true" width="800" height="480">
 
 
 # Entendendo os fluxos
@@ -72,7 +71,7 @@ O fluxo de captura é simples e ocorre de maneira sequencial. Começa capturando
 
 
 
-<img src="vasco.png" width="200" height="100">
+<img src="https://github.com/herianc/datario/blob/main/images/mermaid_diagram.png?raw=true" width="222" height="440">
 
 
 ## Materialização
