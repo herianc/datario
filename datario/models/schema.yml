@@ -19,6 +19,8 @@ sources:
           - name: longitude
           - name: datahora 
             description: Data e horário do último sinal enviado pelo veículo
+          - name: extraido_em
+            description: Data e horário da extração
           - name: sentido
             description: Sentido em que o veículo está em sua linha (Ida ou Volta)
           - name: direcao

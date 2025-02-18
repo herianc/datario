@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: brt_frota_ativa
+    description: "Modelo processa os dados com os últimos registros dos ônibus ativos do BRT"
+    columns:
+      - name: id 
+        description: "Identificador do ônibus"
+      - name: lat
+        description: "Latitude"
+      - name: lon
+        description: "Longitude"  
+      - name: vel
+        description: "Velocidade"
