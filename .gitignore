@@ -172,3 +172,5 @@ cython_debug/
 
 BRT_GPS*
 datario.ipynb
+db/
+__pycache__/
