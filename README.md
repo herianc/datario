@@ -1,6 +1,8 @@
-Este repositório armazena o projeto feito durante o desafio técnico da DIT - SMS. 
+# Desafio Técnico DIT - Secretária Municipal de Saúde do Rio
 
-# Principais bibliotecas e frameworks utilizados
+Este repositório armazena o projeto feito durante o desafio técnico da DIT - SMS para a vaga de Engenheiro de Dados Junior. 
+
+## Principais bibliotecas e frameworks utilizados
 
 - Requests (Extração via API)
 - Pandas  (Manipulação)
