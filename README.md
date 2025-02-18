@@ -61,18 +61,18 @@ export DB_PASSWORD=datario2025
 Para iniciar o fluxo, basta entrar no diretório `pipelines` e executar :
 
 ```bash
-prefect -p run.py -n 'DIT: BRT GPS - Captura' -s
+prefect run -p run.py -n 'DIT: BRT GPS - Captura' -s
 ```
 
 ## Materialização
 
 ```bash
-prefect -p run.py -n 'DIT: BRT GPS - Materialização' -s
+prefect run -p run.py -n 'DIT: BRT GPS - Materialização' -s
 ```
 
 ## Liberação de espaço de armazenamento
 ```bash
-prefect -p run.py -n 'DIT: BRT GPS - Liberação de espaço de armazenamento' -s
+prefect run -p run.py -n 'DIT: BRT GPS - Liberação de espaço de armazenamento' -s
 ```
 
 ### Exemplo de execução
