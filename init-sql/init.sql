@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS brt_report (
     latitude FLOAT,
     longitude FLOAT,
     datahora TIMESTAMP,
+    extraido_em TIMESTAMP,
     velocidade FLOAT,
     sentido VARCHAR(5),
     direcao VARCHAR(10),
