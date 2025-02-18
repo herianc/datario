@@ -20,29 +20,25 @@ Clone o repositório.
 git clone https://github.com/herianc/datario.git
 ```
 
-Entre no diretório do projeto, crie um ambiente virtual e baixe as dependências:
-
-Instalando a versão 3.9 do Python usando pyenv no diretório do projeto.
+Instalando o gerenciador de pacotes uv
 
 ```bash
 cd datario
-pyenv install 3.9
+pip install uv
 ```
-
-Definindo a versão 3.9 do Python.
+Ativando ambiente virtual 
 
 ```bash
-pyenv local 3.9
-```
-
-Exemplo em sistemas Unix:
-```bash
-python -m venv .venv
+uv venv .venv --python 3.9
 source .venv/bin/activate
-pip install -r requirements.txt
+```
+Instalando dependências do projeto
+
+```bash
+uv add pyproject.toml
 ```
 
- Ainda na pasta raiz do projeto, suba um container com a imagem do Postgres.
+Ainda na pasta raiz do projeto, suba um container com a imagem do Postgres.
 
 ```bash
 docker compose up -d
