@@ -8,6 +8,7 @@ dependencies = [
     "dask>=2024.8.0",
     "dask-expr>=1.1.10",
     "dbt-postgres>=1.9.0",
+    "numpy>=2.0.2",
     "pandas>=2.2.3",
     "pandera>=0.22.1",
     "pendulum==2.0.5",
