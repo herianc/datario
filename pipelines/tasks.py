@@ -1,4 +1,5 @@
 import os
+import subprocess
 from datetime import datetime
 
 import pandas as pd
@@ -156,3 +157,5 @@ def free_up_report_storage() -> None:
         pathfile = os.path.join(DATA_FOLDER, file)
         if os.path.isfile(pathfile):
             os.remove(pathfile)
+
+    log("\t✅🚮 Limpeza no diretório pipelines/reports de realizadada com sucesso.")
