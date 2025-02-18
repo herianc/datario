@@ -4,7 +4,7 @@ Este repositório armazena o projeto feito durante o desafio técnico da DIT - S
 
 - Requests (Extração via API)
 - Pandas  (Manipulação)
-- Pandera (Validação dos dados)
+- Pandera (Validação )
 - DBT (Transformação)
 - Prefect 0.15.9 (Orquestração de workflows)
 ## Requisitos 
@@ -70,12 +70,13 @@ prefect -p run.py -n 'DIT: BRT GPS - Materialização' -s
 O fluxo de captura é simples e ocorre de maneira sequencial. Começa capturando os dados brutos na API, em seguida é feita a estruturação do JSON recebido para o formato DataFrame do pandas. Logo após, é feito o salvamento dos dados no formato CSV. Adiante é feita um simples tratamento (transformação do atributo datahora e também adição da data e horário de captura) antes de serem carregados no banco de dados, é feita uma validação utilizando a biblioteca Pandera (validação de tipos). Por fim, é feito o carregamento dos dados na base de dados. Este fluxo é executado a cada 1 minuto.
 
 
-
-<img src="https://github.com/herianc/datario/blob/main/images/mermaid_diagram.png?raw=true" width="222" height="440">
+<div align=center>
+ <img src="https://github.com/herianc/datario/blob/main/images/mermaid_diagram.png?raw=true" width="222" height="440">
+</div>
 
 
 ## Materialização
 
-Este fluxo contém apenas uma tarefa: Materializar a tabela com os registros mais recentes e filtrar os registros que estão com a ignição ativa e pertencem a uma linha. 
+Este fluxo contém apenas uma tarefa: Materializar a tabela com os registros mais recentes e filtrar os registros que estão com ignição ativa e pertencem a uma linha, ou seja, ônibus que integram o BRT. 
 
 
