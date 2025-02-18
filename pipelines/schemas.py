@@ -6,7 +6,7 @@ class BrtReport(pa.DataFrameModel):
     """
     Schema para validar os dados extraídos.
     """
-    
+
     codigo: Series[str]
     placa: Series[str] = pa.Field(nullable=True)
     linha: Series[str] = pa.Field(nullable=False)

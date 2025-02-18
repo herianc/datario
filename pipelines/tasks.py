@@ -1,13 +1,11 @@
 import os
 from datetime import datetime
 
-import numpy as np
 import pandas as pd
 import requests
 from dotenv import load_dotenv
 from prefect import task
 from sqlalchemy import create_engine
-import subprocess
 
 from schemas import BrtReport
 from utils import log
@@ -98,7 +96,7 @@ def process_data(filepath) -> pd.DataFrame:
     df = pd.read_csv(filepath)
     df.rename(columns={"dataHora": "datahora"}, inplace=True)
     df["datahora"] = pd.to_datetime(df["datahora"], unit="ms")
-    df['extraido_em'] = datetime.now()
+    df["extraido_em"] = datetime.now()
     df.drop(columns="id_migracao_trajeto", inplace=True)  # Atributo sempre vazio
 
     log("\t✅ Dados processados com sucesso.")
@@ -112,7 +110,7 @@ def load_to_database(dataframe: pd.DataFrame) -> None:
 
     Args:
         dataframe (pd.DataFrame): DataFrame processado.
-       
+
     """
     engine = create_engine(DB_CONN_STR)
 
@@ -122,7 +120,7 @@ def load_to_database(dataframe: pd.DataFrame) -> None:
             TABLE_NAME, engine, if_exists="append", index=False, method="multi"
         )
         log("\t✅🗃️ Dados carregados na base de dados.")
-        
+
         return True
     except Exception as e:
         log(f"\t❌🗃️ Erro durante o carregamento na base de dados: {str(e)}")
@@ -136,11 +134,23 @@ def run_dbt() -> None:
     Args:
         flag (bool): Flag recebida após o salvamento dos dados mais recentes na base de dados.
     """
-    
+
     try:
-        subprocess.run(["dbt", "run", "--project-dir", "../datario"])
+        subprocess.run(["dbt", "run", "--project-dir", "../queries"])
         log("\t✅ Tabela com os últimos registros atualizada.")
 
     except subprocess.CalledProcessError as e:
         log(f"\t❌ Erro ao executar dbt run: {e.stderr}")
         raise
+
+
+@task
+def free_up_report_storage() -> None:
+    """
+    Realizando a liberação de espaço do diretório de salvamento dos CSVs.
+    """
+
+    for file in os.listdir(DATA_FOLDER):
+        pathfile = os.path.join(DATA_FOLDER, file)
+        if os.path.isfile(pathfile):
+            os.remove(pathfile)
