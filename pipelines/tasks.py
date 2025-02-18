@@ -129,20 +129,18 @@ def load_to_database(dataframe: pd.DataFrame) -> None:
 
 
 @task
-def run_dbt(flag:bool) -> None:
+def run_dbt() -> None:
     """
-    Função que executa o modelo dbt que atualiza a tabela brt_table com os últimos regitros extraídos
+    Função para materializar o modelo DBT com codigo, latitude, longitude e velocidade de veículos ativos do BRT
 
     Args:
         flag (bool): Flag recebida após o salvamento dos dados mais recentes na base de dados.
     """
-    if flag:
-        try:
-            subprocess.run(
-                    ["dbt", "run", "--project-dir", "../datario"]
-                )
-            log("\t✅ Tabela com os últimos registros atualizada.")
+    
+    try:
+        subprocess.run(["dbt", "run", "--project-dir", "../datario"])
+        log("\t✅ Tabela com os últimos registros atualizada.")
 
-        except subprocess.CalledProcessError as e:
-                log(f"\t❌ Erro ao executar dbt run: {e.stderr}")
-                raise
+    except subprocess.CalledProcessError as e:
+        log(f"\t❌ Erro ao executar dbt run: {e.stderr}")
+        raise
