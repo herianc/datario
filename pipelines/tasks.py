@@ -69,6 +69,8 @@ def save_report(data: pd.DataFrame) -> str:
     Args:
         data (pd.DataFrame): DataFrame com os dados estruturados
     """
+    if not os.path.exists("reports"):
+        os.makedirs("reports")
 
     time = datetime.now().strftime("%Y-%m-%d-%H%M")
 
