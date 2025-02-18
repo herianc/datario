@@ -15,16 +15,28 @@ Este repositório armazena o projeto feito durante o desafio técnico da DIT - S
 
 ## Instalação
 
-Clone o repositório:
+Clone o repositório.
 ```bash
 git clone https://github.com/herianc/datario.git
 ```
 
 Entre no diretório do projeto, crie um ambiente virtual e baixe as dependências:
 
-Exemplo em sistemas Unix:
+Instalando a versão 3.9 do Python usando pyenv no diretório do projeto.
+
 ```bash
 cd datario
+pyenv install 3.9
+```
+
+Definindo a versão 3.9 do Python.
+
+```bash
+pyenv local 3.9
+```
+
+Exemplo em sistemas Unix:
+```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
@@ -56,6 +68,11 @@ prefect -p run.py -n 'DIT: BRT GPS - Captura' -s
 
 ```bash
 prefect -p run.py -n 'DIT: BRT GPS - Materialização' -s
+```
+
+## Liberação de espaço de armazenamento
+```bash
+prefect -p run.py -n 'DIT: BRT GPS - Liberação de espaço de armazenamento' -s
 ```
 
 ### Exemplo de execução
