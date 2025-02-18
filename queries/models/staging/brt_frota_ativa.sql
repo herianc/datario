@@ -15,7 +15,7 @@ renamed AS (
         longitude AS lon,
         velocidade AS vel
     FROM source
-    WHERE (ignicao = true) AND (linha != '0') AND (extraido_em >= NOW() - INTERVAL '7 day')
+    WHERE (ignicao = true) AND (linha != '0') AND (extraido_em >= NOW() - INTERVAL '1 day')
 )
 
 
