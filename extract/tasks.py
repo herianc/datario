@@ -1,25 +1,29 @@
 import os
 from datetime import datetime
-from dotenv import load_dotenv
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 import requests
+from dotenv import load_dotenv
 from prefect import task
 from sqlalchemy import create_engine
+import subprocess
+
 from schemas import BrtReport
 from utils import log
 
 load_dotenv()
 
-DB_USER = os.getenv('DB_USER')
-DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 
 URL = "https://dados.mobilidade.rio/gps/brt"
-DATA_FOLDER = os.path.join('..', 'reports')
+DATA_FOLDER = "reports"
 
 DB_CONN_STR = f"postgresql://{DB_USER}:{DB_PASSWORD}@localhost:5432/postgres"
-TABLE_NAME = 'brt_report'
+TABLE_NAME = "brt_report"
+
 
 @task
 def get_data() -> dict:
@@ -58,6 +62,7 @@ def parse_data(data: dict) -> pd.DataFrame:
     except Exception as e:
         log(f"❌ Falha na estruturação dos dados: {e}")
 
+
 @task
 def save_report(data: pd.DataFrame) -> str:
     """
@@ -75,8 +80,9 @@ def save_report(data: pd.DataFrame) -> str:
     data.to_csv(filepath, index=False)
     log("✅ Dados salvos com sucesso.")
 
-    return filepath  
-        
+    return filepath
+
+
 @task
 def process_data(filepath) -> pd.DataFrame:
     """
@@ -88,23 +94,26 @@ def process_data(filepath) -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame processado.
     """
-    
+
     df = pd.read_csv(filepath)
-    df.rename(columns={'dataHora':'datahora'}, inplace=True)
-    df["datahora"] = pd.to_datetime(df["datahora"], unit='ms')
-    df.drop(columns="id_migracao_trajeto", inplace=True) # Atributo sempre vazio
-    
-    
-    log('✅ Dados processados com sucesso.')
+    df.rename(columns={"dataHora": "datahora"}, inplace=True)
+    df["datahora"] = pd.to_datetime(df["datahora"], unit="ms")
+    df.drop(columns="id_migracao_trajeto", inplace=True)  # Atributo sempre vazio
+
+    log("✅ Dados processados com sucesso.")
     return df
 
+
 @task
-def load_to_database(dataframe:pd.DataFrame) -> None:
+def load_to_database(dataframe: pd.DataFrame) -> bool:
     """
     Carrega o conjunto de dados estruturado no banco de dados.
 
     Args:
         dataframe (pd.DataFrame): DataFrame processado.
+    
+    Returns 
+        bool: Flag para sinalizar que o salvamento já ocorreu    
     """
     engine = create_engine(DB_CONN_STR)
 
@@ -114,6 +123,28 @@ def load_to_database(dataframe:pd.DataFrame) -> None:
             TABLE_NAME, engine, if_exists="append", index=False, method="multi"
         )
         log("✅ Dados carregados na base de dados.")
+        
+        return True
     except Exception as e:
         log(f"❌ Erro durante o carregamento na base de dados: {str(e)}")
-    
+
+
+@task
+def run_dbt(condition: bool) -> None:
+    """
+    Função que executa o modelo dbt que atualiza a tabela brt_table com os últimos regitros extraídos.
+
+    """
+    if condition:
+        try:
+            result = subprocess.run(
+                ["dbt", "run", "--project-dir", "../datario"],
+                text=False,
+                check=False,
+                stdout=False
+            )
+            log("✅ Tabela com os últimos registros atualizada.")
+
+        except subprocess.CalledProcessError as e:
+            log(f"❌ Erro ao executar dbt run: {e.stderr}")
+            raise
