@@ -20,25 +20,25 @@ Clone o repositório.
 git clone https://github.com/herianc/datario.git
 ```
 
-Instalando o gerenciador de pacotes uv
+Instale o gerenciador de pacotes uv:
 
 ```bash
 cd datario
 pip install uv
 ```
-Ativando ambiente virtual 
+Ative ambiente virtual:
 
 ```bash
 uv venv .venv --python 3.9
 source .venv/bin/activate
 ```
-Instalando dependências do projeto
+Instale as dependências do projeto:
 
 ```bash
 uv add pyproject.toml
 ```
 
-Ainda na pasta raiz do projeto, suba um container com a imagem do Postgres.
+Ainda na pasta raiz do projeto, suba o container com a imagem do Postgres:
 
 ```bash
 docker compose up -d
@@ -46,12 +46,13 @@ docker compose up -d
 
 O diretório `init-sql` contém um script para criação da tabela onde será armazenado os dados extraídos durante pipeline.
 
-Definindo as variáveis de ambiente utilizadas neste projeto. 
+Defina as variáveis de ambiente utilizadas neste projeto. 
 
 ```bash
 export DB_USER=postgres
 export DB_PASSWORD=datario2025
 ```
+
 # Iniciando os fluxos
 ## Captura
 Para iniciar o fluxo, basta entrar no diretório `pipelines` e executar :
@@ -73,7 +74,9 @@ prefect run -p run.py -n 'DIT: BRT GPS - Liberação de espaço de armazenamento
 
 ### Exemplo de execução
 
-<img src="https://github.com/herianc/datario/blob/main/images/image.png?raw=true" width="800" height="480">
+<div align=center>
+ <img src="https://github.com/herianc/datario/blob/main/images/image.png?raw=true" width="800" height="480">
+</div>
 
 # Entendendo os fluxos
 
