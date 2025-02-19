@@ -3,9 +3,11 @@
  <img src="https://github.com/herianc/dit-smt-rio/blob/main/images/header.png?raw=true">
 </div>
 
-
-
+## Sobre
 Este repositório armazena o projeto feito durante o desafio técnico da DIT - SMS para a vaga de Engenheiro de Dados Junior. 
+
+## Documentação do Projeto
+- [Documentação](https://github.com/herianc/dit-smt-rio/wiki)
 
 ## Principais bibliotecas e frameworks utilizados
 
