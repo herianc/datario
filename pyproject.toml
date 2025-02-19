@@ -13,6 +13,7 @@ dependencies = [
     "pandera>=0.22.1",
     "pendulum==2.0.5",
     "prefect==0.15.9",
+    "psycopg2-binary>=2.9.10",
     "pyproject-toml>=0.1.0",
     "python-dotenv>=1.0.1",
     "sqlalchemy>=2.0.38",
