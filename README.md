@@ -30,7 +30,7 @@ git clone https://github.com/herianc/datario.git
 Instale o gerenciador de pacotes uv:
 
 ```bash
-cd datario
+cd dit-smt-rio
 pip install uv
 ```
 Ative ambiente virtual:
