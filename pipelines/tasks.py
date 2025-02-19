@@ -139,7 +139,7 @@ def run_dbt() -> None:
     """
 
     try:
-        subprocess.run(["dbt", "run", "--project-dir", "../queries"])
+        subprocess.run(["dbt", "run", "--project-dir", "../queries", "--profiles-dir", "../.dbt/"])
         log("\t✅ Tabela com os últimos registros atualizada.")
 
     except subprocess.CalledProcessError as e:
