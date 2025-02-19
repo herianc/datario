@@ -4,7 +4,7 @@
 </div>
 
 ## Sobre
-Este repositório armazena o projeto feito durante o desafio técnico da DIT - SMS para a vaga de Engenheiro de Dados Junior. 
+Este repositório contém o projeto desenvolvido para o desafio técnico da DIT - SMS, referente à vaga de Engenheiro de Dados Júnior. O desafio envolve a captura, a cada minuto, de dados dos ônibus do BRT por meio de uma API em tempo real. Os dados são então armazenados em um arquivo CSV e posteriormente inseridos em um banco de dados PostgreSQL. Além disso, é necessário criar uma tabela contendo o código, a localização e a velocidade dos ônibus.
 
 ## Documentação do Projeto
 - [Documentação](https://github.com/herianc/dit-smt-rio/wiki)
