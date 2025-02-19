@@ -24,7 +24,7 @@ Este repositório contém o projeto desenvolvido para o desafio técnico da DIT 
 
 Clone o repositório.
 ```bash
-git clone https://github.com/herianc/datario.git
+git clone https://github.com/herianc/dit-smt-rio.git
 ```
 
 Instale o gerenciador de pacotes uv:
