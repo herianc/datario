@@ -79,28 +79,10 @@ prefect agent local start -f
 ```
 Os fluxos podem ser vistos em `localhost:8080`.
 
-## Captura
-Para iniciar o fluxo, basta entrar no diretório `pipelines` e executar :
-
-```bash
-prefect run -p run.py -n 'DIT: BRT GPS - Captura' -s
-```
-
-## Materialização
-
-```bash
-prefect run -p run.py -n 'DIT: BRT GPS - Materialização' -s
-```
-
-## Liberação de espaço de armazenamento
-```bash
-prefect run -p run.py -n 'DIT: BRT GPS - Liberação de espaço de armazenamento' -s
-```
-
 ### Exemplo de execução
 
 <div align=center>
- <img src="https://github.com/herianc/datario/blob/main/images/image.png?raw=true" width="800" height="480">
+ <img src="https://github.com/herianc/dit-smt-rio/blob/main/images/printscreen.png?raw=true">
 </div>
 
 # Entendendo os fluxos
