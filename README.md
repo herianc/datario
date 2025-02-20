@@ -3,24 +3,25 @@
  <img src="https://github.com/herianc/dit-smt-rio/blob/main/images/header.png?raw=true">
 </div>
 
-## Sobre
+## 💭 Sobre
 Este repositório contém o projeto desenvolvido para o desafio técnico da DIT - SMS, referente à vaga de Engenheiro de Dados Júnior. O desafio envolve a captura, a cada minuto, de dados dos ônibus do BRT por meio de uma API em tempo real. Os dados são então armazenados em um arquivo CSV e posteriormente inseridos em um banco de dados PostgreSQL. Além disso, é necessário criar uma tabela contendo o código, a localização e a velocidade dos ônibus.
 
-## Documentação do Projeto
+## 📃 Documentação do Projeto
 - [Documentação](https://github.com/herianc/dit-smt-rio/wiki)
 
-## Principais bibliotecas e frameworks utilizados
+## 🧰 Principais bibliotecas e frameworks utilizados
 
 - Requests (Extração via API)
 - Pandas  (Manipulação)
 - Pandera (Validação )
 - DBT (Transformação)
-- Prefect 0.15.9 (Orquestração de workflows)
-## Requisitos 
+- Prefect 0.15.9 (Orquestração de Workflows)
+  
+## 🖥️ Requisitos 
 - Python 3.9
 - Docker
 
-## Instalação
+## ⬇️ Instalação
 
 Clone o repositório.
 ```bash
@@ -45,7 +46,7 @@ Instale as dependências do projeto:
 uv add pyproject.toml
 ```
 
-Ainda na pasta raiz do projeto, suba o container com a imagem do Postgres:
+Ainda na pasta raiz do projeto, suba o container com a imagem do PostgreSQL:
 
 ```bash
 docker compose up -d
@@ -60,24 +61,24 @@ export DB_USER=postgres
 export DB_PASSWORD=datario2025
 ```
 
-# Configuração Self-host Prefect
+## ⚙️ Configuração Self-host Prefect
 
 Inicie o servidor local.
 ```bash
 prefect backend server
 prefect server start -d --no-hasura-port --no-graphql-port --postgres-port '5433'
 ```
-Crie o projeto e registre os flows
+Crie o projeto e registre os flows.
 ```bash
 cd pipelines
 prefect create project 'DIT: BRT GPS'
 prefect register --project 'DIT: BRT GPS' -p .
 ```
-Ative o agente local
+Ative o agente local.
 ```bash
 prefect agent local start -f
 ```
-Os fluxos podem ser vistos em `localhost:8080`.
+Os fluxos em execução podem ser monitorados em `localhost:8080`.
 
 ### Exemplo de execução
 
@@ -85,7 +86,7 @@ Os fluxos podem ser vistos em `localhost:8080`.
  <img src="https://github.com/herianc/dit-smt-rio/blob/main/images/printscreen.png?raw=true">
 </div>
 
-# Entendendo os fluxos
+# 📑 Entendendo os fluxos
 
 ## Captura
 
