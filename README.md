@@ -60,7 +60,25 @@ export DB_USER=postgres
 export DB_PASSWORD=datario2025
 ```
 
-# Iniciando os fluxos
+# Configuração Self-host Prefect
+
+Inicie o servidor local.
+```bash
+prefect backend server
+prefect server start --no-hasura-port --no-graphql-port --postgres-port '5433'-d
+```
+Crie o projeto e registre os flows
+```bash
+cd pipelines
+prefect create project 'DIT: BRT GPS'
+prefect register --project 'DIT: BRT GPS' -p .
+```
+Ative o agente local
+```bash
+prefect agent local start
+```
+Os fluxos podem ser vistos em `localhost:8080`.
+
 ## Captura
 Para iniciar o fluxo, basta entrar no diretório `pipelines` e executar :
 
