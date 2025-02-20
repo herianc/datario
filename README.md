@@ -75,7 +75,7 @@ prefect register --project 'DIT: BRT GPS' -p .
 ```
 Ative o agente local
 ```bash
-prefect agent local start
+prefect agent local start -f
 ```
 Os fluxos podem ser vistos em `localhost:8080`.
 
