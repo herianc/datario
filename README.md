@@ -20,6 +20,7 @@ Este repositório contém o projeto desenvolvido para o desafio técnico da Dire
 ## 🖥️ Requisitos 
 - Python 3.9
 - Docker
+- Docker Compose Standalone
 
 ## ⬇️ Instalação
 
