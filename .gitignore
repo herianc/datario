@@ -175,3 +175,4 @@ datario.ipynb
 db/
 __pycache__/
 *log/
+*.user.yml
