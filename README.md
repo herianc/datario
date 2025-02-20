@@ -65,7 +65,7 @@ export DB_PASSWORD=datario2025
 Inicie o servidor local.
 ```bash
 prefect backend server
-prefect server start --no-hasura-port --no-graphql-port --postgres-port '5433'-d
+prefect server start -d --no-hasura-port --no-graphql-port --postgres-port '5433'
 ```
 Crie o projeto e registre os flows
 ```bash
