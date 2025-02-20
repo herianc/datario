@@ -33,7 +33,7 @@ Instale o gerenciador de pacotes uv:
 cd dit-smt-rio
 pip install uv
 ```
-Ative ambiente virtual:
+Ative o ambiente virtual:
 
 ```bash
 uv venv .venv --python 3.9
@@ -51,7 +51,7 @@ Ainda na pasta raiz do projeto, suba o container com a imagem do Postgres:
 docker compose up -d
 ```
 
-O diretório `init-sql` contém um script para criação da tabela onde será armazenado os dados extraídos durante pipeline.
+O diretório `init-sql` contém um script para criação da tabela onde serão armazenado os dados extraídos durante pipeline.
 
 Defina as variáveis de ambiente utilizadas neste projeto. 
 
